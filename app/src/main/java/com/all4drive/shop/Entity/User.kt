@@ -1,14 +1,14 @@
-package com.all4drive.shop
+package com.all4drive.shop.Entity
 
 import java.security.MessageDigest
 import java.util.Locale
 import java.util.UUID
 
 
-class User(_email: String, _password: String) {
+class User(email: String, password: String) {
     val id = UUID.randomUUID().toString()
-    val email = _email
-    val password = getHashPassword(_password)
+    val email = email
+    val password = getHashPassword(password)
 
     private fun getHashPassword(pass: String) :String {
         val digestByte = MessageDigest.getInstance("SHA256").digest(pass.toByteArray())
@@ -17,8 +17,4 @@ class User(_email: String, _password: String) {
             toString().lowercase(Locale.US)
         }
     }
-//
-//    fun getUserInfo() :String {
-//        return "User ID: $id, Email: $email, Password: $password"
-//    }
  }

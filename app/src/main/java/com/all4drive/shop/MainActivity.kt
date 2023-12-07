@@ -30,6 +30,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.all4drive.shop.Entity.User
+import com.all4drive.shop.models.UserModel
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -58,7 +60,7 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Form() {
-    var userList = ArrayList<UserModel>()
+//    var userList = ArrayList<UserModel>()
 
     var email by remember {
         mutableStateOf("")
@@ -115,36 +117,45 @@ fun Form() {
         Row(
             modifier = Modifier.padding(5.dp)
         ) {
-            Button(onClick = {
-                createUser(email, password, "users")
-//                email = ""
-//                password = ""
-            }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(10.dp)) {
-                TextButtonSubmit("SUBMIT")
-            }
+            CreateUserToDbButtonComponent("Сохранить", email, password, "users")
         }
         Row(
             modifier = Modifier.padding(5.dp)
         ) {
-            Button(onClick = {
-                userList = getUsersAll("users")
-            }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(10.dp)) {
-                TextButtonSubmit("Найти")
-            }
+            GetUsersFromDbButtonComponent(titleButton = "Получить", table = "users")
         }
     }
 }
 
 
 @Composable
-fun TextButtonSubmit(name: String) {
-    Text(
-        text = name,
-        style = TextStyle(
-            color = Color.White,
-            fontSize = 18.sp
+fun CreateUserToDbButtonComponent(titleButton: String, email: String, password: String, table: String) {
+    Button(onClick = {
+        createUser(email, password, table)
+    }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(10.dp)) {
+        Text(
+            text = titleButton,
+            style = TextStyle(
+                color = Color.White,
+                fontSize = 18.sp
+            )
         )
-    )
+    }
+}
+
+@Composable
+fun GetUsersFromDbButtonComponent(titleButton: String, table: String) {
+    Button(onClick = {
+        getUsersAll(table)
+    }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(10.dp)) {
+        Text(
+            text = titleButton,
+            style = TextStyle(
+                color = Color.White,
+                fontSize = 18.sp
+            )
+        )
+    }
 }
 
 
@@ -171,10 +182,7 @@ fun getUsersAll(table: String): ArrayList<UserModel> {
 }
 
 fun createUser(email: String, password: String, table: String) {
-
     val db: DatabaseReference = Firebase.database.reference
     val user = User(email, password)
     db.child(table).child(user.id).setValue(user)
-    Log.d("MyLog", "User: $db")
-
 }

@@ -1,4 +1,4 @@
-package com.all4drive.shop
+package com.all4drive.shop.models
 
 data class UserModel(
     var id: String? = null,

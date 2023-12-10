@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Магазин</string>
+    <string name="registration">Регистрация</string>
+    <string name="login">Авторизоваться</string>
+    <string name="logout">Выйти</string>
+    <string name="delivery_address">Адрес доставки</string>
+    <string name="enter_delivery_address">Введите адрес доставки</string>
+    <string name="enter_password">Введите пароль</string>
+    <string name="password">Пароль</string>
+    <string name="have_account">У Вас уже есть аккаунт?</string>
+    <string name="dont_have_account">У Вас нет аккаунта?</string>
+    <string name="your_name">Введите Ваше имя</string>
+    <string name="name">Имя</string>
+    <string name="phone">Телефон</string>
+    <string name="youre_phone">Введите номер телефона</string>
+</resources>

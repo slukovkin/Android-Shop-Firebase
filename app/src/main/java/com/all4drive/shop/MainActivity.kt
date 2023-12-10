@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,10 +29,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.all4drive.shop.Entity.User
-import com.all4drive.shop.models.UserModel
+import com.all4drive.shop.Entity.Customer
+import com.all4drive.shop.models.CustomerModel
+import com.all4drive.shop.view.auth.Auth
+import com.all4drive.shop.view.auth.selectRegistrationOrLogin
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -43,19 +47,26 @@ import com.google.firebase.database.database
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContent {
+
+            var loginOrRegistration by remember {
+                mutableStateOf(false)
+            }
+
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(5.dp)
+                    .fillMaxSize()
+                    .padding(top = 48.dp, start = 8.dp, end = 8.dp),
             ) {
-                Form()
+//                Form()
+                Auth(loginOrRegistration)
+                loginOrRegistration = selectRegistrationOrLogin(loginOrRegistration)
             }
         }
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -108,6 +119,7 @@ fun Form() {
                 textStyle = TextStyle(fontSize = 25.sp),
                 singleLine = true,
                 placeholder = { Text("Введите пароль") },
+                visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 modifier = Modifier
                     .padding(horizontal = 5.dp)
@@ -129,7 +141,12 @@ fun Form() {
 
 
 @Composable
-fun CreateUserToDbButtonComponent(titleButton: String, email: String, password: String, table: String) {
+fun CreateUserToDbButtonComponent(
+    titleButton: String,
+    email: String,
+    password: String,
+    table: String
+) {
     Button(onClick = {
         createUser(email, password, table)
     }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(10.dp)) {
@@ -159,15 +176,15 @@ fun GetUsersFromDbButtonComponent(titleButton: String, table: String) {
 }
 
 
-fun getUsersAll(table: String): ArrayList<UserModel> {
-    val userList = arrayListOf<UserModel>()
+fun getUsersAll(table: String): ArrayList<CustomerModel> {
+    val userList = arrayListOf<CustomerModel>()
     val dbRef: DatabaseReference = FirebaseDatabase.getInstance().getReference(table)
     dbRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
             userList.clear()
             if (snapshot.exists()) {
                 for (data in snapshot.children) {
-                    val userData = data.getValue(UserModel::class.java)
+                    val userData = data.getValue(CustomerModel::class.java)
                     userList.add(userData!!)
                 }
             }
@@ -183,6 +200,6 @@ fun getUsersAll(table: String): ArrayList<UserModel> {
 
 fun createUser(email: String, password: String, table: String) {
     val db: DatabaseReference = Firebase.database.reference
-    val user = User(email, password)
+    val user = Customer(email, password)
     db.child(table).child(user.id).setValue(user)
 }

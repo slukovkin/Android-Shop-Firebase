@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Shop</string>
+    <string name="registration">Registration</string>
+    <string name="login">Log in</string>
+    <string name="logout">Log out</string>
+    <string name="delivery_address">Delivery address</string>
+    <string name="enter_delivery_address">Enter delivery address</string>
+    <string name="enter_password">Enter password</string>
+    <string name="password">Password</string>
+    <string name="have_account">Already have an account?</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="your_name">Enter your name</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="youre_phone">Enter youre phone number</string>
 </resources>

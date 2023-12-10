@@ -14,4 +14,7 @@
     <string name="name">Имя</string>
     <string name="phone">Телефон</string>
     <string name="youre_phone">Введите номер телефона</string>
+    <string name="save">Сохранить</string>
+    <string name="get">Получить</string>
+    <string name="enter_email">Введите email</string>
 </resources>

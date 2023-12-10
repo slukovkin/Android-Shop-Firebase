@@ -11,9 +11,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.all4drive.shop.database.Db
 
 @Composable
 fun ButtonText(text: String) {
+    val db = Db()
+
     Button(
         onClick = { },
         modifier = Modifier

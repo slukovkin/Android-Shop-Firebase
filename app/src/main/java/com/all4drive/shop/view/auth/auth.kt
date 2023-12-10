@@ -1,6 +1,5 @@
 package com.all4drive.shop.view.auth
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -29,14 +28,15 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.all4drive.shop.R
 import com.all4drive.shop.components.ButtonText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Auth(state: Boolean) {
+fun Auth(status: Boolean, navController: NavController) {
     val login by remember {
-        mutableStateOf(state)
+        mutableStateOf(status)
     }
 
     var name by remember {
@@ -145,21 +145,29 @@ fun Auth(state: Boolean) {
             if (login) ButtonText(stringResource(R.string.login))
             else ButtonText(stringResource(R.string.registration))
         }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 5.dp)
+                .padding(bottom = 10.dp)
+        ) {
+            SelectRegistrationOrLogin(status, navController)
+        }
     }
 }
 
 
 @Composable
-fun selectRegistrationOrLogin(activityToggle: Boolean): Boolean {
+fun SelectRegistrationOrLogin(
+    activityToggle: Boolean,
+    navController: NavController
+) {
     val registration = stringResource(id = R.string.have_account)
     val login = stringResource(id = R.string.dont_have_account)
 
-    Log.d("MyLog", "Status: $activityToggle")
-    var toggle by remember {
-        mutableStateOf(activityToggle)
-    }
     val content by remember {
-        mutableStateOf(if (toggle) login else registration)
+        mutableStateOf(if (activityToggle) login else registration)
     }
 
     Row(
@@ -175,11 +183,16 @@ fun selectRegistrationOrLogin(activityToggle: Boolean): Boolean {
                 textAlign = TextAlign.Center
             ),
             modifier = Modifier
-                .clickable { toggle = !toggle }
+                .clickable {
+                    if (activityToggle) {
+                        navController.navigate("registration")
+                    } else {
+                        navController.navigate("login")
+                    }
+                }
                 .fillMaxWidth()
                 .padding(top = 5.dp, bottom = 10.dp)
         )
     }
-    return toggle
 }
 

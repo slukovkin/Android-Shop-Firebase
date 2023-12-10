@@ -30,12 +30,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.all4drive.shop.Entity.Customer
 import com.all4drive.shop.models.CustomerModel
-import com.all4drive.shop.view.auth.Auth
-import com.all4drive.shop.view.auth.selectRegistrationOrLogin
+import com.all4drive.shop.navigation.NavGraph
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -49,22 +51,29 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
-            var loginOrRegistration by remember {
-                mutableStateOf(false)
-            }
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = 48.dp, start = 8.dp, end = 8.dp),
             ) {
-//                Form()
-                Auth(loginOrRegistration)
-                loginOrRegistration = selectRegistrationOrLogin(loginOrRegistration)
+                StartNavigation()
             }
         }
     }
+}
+
+@Composable
+fun StartNavigation(){
+    val navController: NavHostController = rememberNavController()
+    NavGraph(navHostController = navController, navController = navController)
+}
+
+
+@Composable
+fun StartScreen() {
+    Text("Вы зашли с приложение!",
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = TextAlign.Center)
 }
 
 

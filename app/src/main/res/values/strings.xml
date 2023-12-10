@@ -13,4 +13,7 @@
     <string name="name">Name</string>
     <string name="phone">Phone</string>
     <string name="youre_phone">Enter youre phone number</string>
+    <string name="save">Save</string>
+    <string name="get">Get</string>
+    <string name="enter_email">Enter your email</string>
 </resources>

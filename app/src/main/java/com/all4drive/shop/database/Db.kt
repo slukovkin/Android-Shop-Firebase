@@ -1,6 +1,5 @@
 package com.all4drive.shop.database
 
-import android.util.Log
 import com.all4drive.shop.Entity.Customer
 import com.all4drive.shop.models.CustomerModel
 import com.google.firebase.Firebase
@@ -24,7 +23,6 @@ class Db {
                         userList.add(userData!!)
                     }
                 }
-                Log.d("MyLog", "Users: $userList")
             }
 
             override fun onCancelled(error: DatabaseError) {

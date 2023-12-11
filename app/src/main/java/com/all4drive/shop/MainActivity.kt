@@ -25,22 +25,18 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = 48.dp, start = 8.dp, end = 8.dp),
             ) {
-                StartNavigation()
+                val navController: NavHostController = rememberNavController()
+                NavGraph(navHostController = navController, navController = navController)
             }
         }
     }
-}
-
-@Composable
-fun StartNavigation() {
-    val navController: NavHostController = rememberNavController()
-    NavGraph(navHostController = navController, navController = navController)
 }
 
 
@@ -90,4 +86,3 @@ fun GetUsersFromDbButtonComponent(titleButton: String, table: String) {
         )
     }
 }
-

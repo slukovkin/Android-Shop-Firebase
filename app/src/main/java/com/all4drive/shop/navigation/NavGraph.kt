@@ -13,14 +13,14 @@ fun NavGraph(
     navHostController: NavHostController,
     navController: NavController
 ) {
-    NavHost(navController = navHostController, startDestination = NavigationItem.Login.route) {
-        composable(NavigationItem.Login.route) {
+    NavHost(navController = navHostController, startDestination = RouteNavigation.Login.route) {
+        composable(RouteNavigation.Login.route) {
             Auth(true, navController)
         }
-        composable(NavigationItem.Registration.route) {
+        composable(RouteNavigation.Registration.route) {
             Auth(false, navController)
         }
-        composable(NavigationItem.Main.route) {
+        composable(RouteNavigation.Main.route) {
             StartScreen()
         }
     }

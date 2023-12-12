@@ -1,15 +1,7 @@
 package com.all4drive.shop.navigation
 
-import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
-
-@Composable
-fun RouteNavigation(
-    navController: NavController
-)  {
-    val routes = listOf<NavigationItem>(
-        NavigationItem.Login,
-        NavigationItem.Registration,
-        NavigationItem.Main
-    )
+sealed class RouteNavigation(val title: String, val route: String) {
+    object Login : RouteNavigation("Login", "login")
+    object Registration : RouteNavigation("Registration", "registration")
+    object Main : RouteNavigation("Main", "main")
 }

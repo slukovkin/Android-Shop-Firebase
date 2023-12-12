@@ -27,7 +27,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -39,7 +38,8 @@ import com.all4drive.shop.components.ButtonText
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Auth(status: Boolean, navController: NavController) {
-    val login by remember {
+
+    val loginOrRegistration by remember {
         mutableStateOf(status)
     }
     var name by remember {
@@ -49,17 +49,18 @@ fun Auth(status: Boolean, navController: NavController) {
         mutableStateOf("")
     }
     var password by remember {
-        mutableStateOf(TextFieldValue(""))
+        mutableStateOf("")
     }
     var address by remember {
         mutableStateOf("")
     }
-    var visible by remember {
+    var isVisiblePassword by remember {
         mutableStateOf(true)
     }
+
     val iconButtonPasswordToggle = @Composable {
-        IconButton(onClick = { visible = !visible }) {
-            if (visible) {
+        IconButton(onClick = { isVisiblePassword = !isVisiblePassword }) {
+            if (isVisiblePassword) {
                 Icon(
                     painter = painterResource(id = R.drawable.password_visibility_off),
                     contentDescription = "Icon"
@@ -80,7 +81,7 @@ fun Auth(status: Boolean, navController: NavController) {
             .padding(5.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 15.dp),
     ) {
-        if (!login) {
+        if (!loginOrRegistration) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -88,7 +89,7 @@ fun Auth(status: Boolean, navController: NavController) {
             ) {
                 TextField(
                     value = name,
-                    onValueChange = { value -> name = value },
+                    onValueChange = { name = it },
                     textStyle = TextStyle(fontSize = 25.sp),
                     singleLine = true,
                     label = { Text(stringResource(id = R.string.name)) },
@@ -107,7 +108,7 @@ fun Auth(status: Boolean, navController: NavController) {
         ) {
             TextField(
                 value = phone,
-                onValueChange = { value -> phone = value },
+                onValueChange = { phone = it },
                 textStyle = TextStyle(fontSize = 25.sp),
                 singleLine = true,
                 label = { Text(stringResource(id = R.string.phone)) },
@@ -130,7 +131,8 @@ fun Auth(status: Boolean, navController: NavController) {
                 singleLine = true,
                 label = { Text(stringResource(id = R.string.password)) },
                 placeholder = { Text(stringResource(id = R.string.enter_password)) },
-                visualTransformation = if (visible) PasswordVisualTransformation() else VisualTransformation.None,
+                visualTransformation = if (isVisiblePassword) PasswordVisualTransformation()
+                else VisualTransformation.None,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 trailingIcon = { iconButtonPasswordToggle() },
                 modifier = Modifier
@@ -138,7 +140,7 @@ fun Auth(status: Boolean, navController: NavController) {
                     .padding(top = 5.dp)
             )
         }
-        if (!login) {
+        if (!loginOrRegistration) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -146,7 +148,7 @@ fun Auth(status: Boolean, navController: NavController) {
             ) {
                 TextField(
                     value = address,
-                    onValueChange = { text -> address = text },
+                    onValueChange = { address = it },
                     textStyle = TextStyle(fontSize = 25.sp),
                     singleLine = true,
                     label = { Text(stringResource(R.string.delivery_address)) },
@@ -163,8 +165,17 @@ fun Auth(status: Boolean, navController: NavController) {
                 .padding(horizontal = 5.dp)
                 .padding(bottom = 10.dp)
         ) {
-            if (login) ButtonText(stringResource(R.string.login))
-            else ButtonText(stringResource(R.string.registration))
+            if (loginOrRegistration) {
+                ButtonText(stringResource(R.string.login), phone, password)
+            } else {
+                ButtonText(
+                    stringResource(R.string.registration),
+                    phone,
+                    password,
+                    name,
+                    address
+                )
+            }
         }
 
         Row(
@@ -215,4 +226,3 @@ fun SelectRegistrationOrLogin(
         )
     }
 }
-

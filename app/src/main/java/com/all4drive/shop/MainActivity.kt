@@ -7,24 +7,25 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.all4drive.shop.navigation.NavGraph
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 class MainActivity : ComponentActivity() {
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        auth = Firebase.auth
 
         setContent {
             Column(
@@ -43,46 +44,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun StartScreen() {
     Text(
-        "Вы зашли с приложение!",
+        "Добро пожаловать!",
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center
     )
-}
-
-@Composable
-fun CreateUserToDbButtonComponent(
-    titleButton: String,
-    name: String,
-    email: String,
-    password: String,
-    table: String
-) {
-    Button(
-        onClick = {},
-        modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(10.dp)
-    ) {
-        Text(
-            text = titleButton,
-            style = TextStyle(
-                color = Color.White,
-                fontSize = 18.sp
-            )
-        )
-    }
-}
-
-@Composable
-fun GetUsersFromDbButtonComponent(titleButton: String, table: String) {
-    Button(
-        onClick = {},
-        modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(10.dp)
-    ) {
-        Text(
-            text = titleButton,
-            style = TextStyle(
-                color = Color.White,
-                fontSize = 18.sp
-            )
-        )
-    }
 }

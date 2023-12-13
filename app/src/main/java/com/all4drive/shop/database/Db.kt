@@ -38,7 +38,7 @@ class Db {
         return userList
     }
 
-    fun login(phone: String, password: String, table: String) {
+    fun login(phone: String, password: String, table: String): CustomerModel? {
 
         var user: CustomerModel? = null
         val passwordHash = passwordHashGenerator(password)
@@ -63,6 +63,7 @@ class Db {
             })
 
         Log.d("MyLog", "Пользователь: ${user?.name} с телефоном ${user?.phone} найден в БД")
+        return user
     }
 
 

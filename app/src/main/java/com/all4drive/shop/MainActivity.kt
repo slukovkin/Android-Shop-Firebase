@@ -3,10 +3,13 @@ package com.all4drive.shop
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -31,7 +34,9 @@ class MainActivity : ComponentActivity() {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 48.dp, start = 8.dp, end = 8.dp),
+                    .verticalScroll(ScrollState(0), true)
+                    .padding(start = 8.dp, end = 8.dp),
+                verticalArrangement = Arrangement.Center
             ) {
                 val navController: NavHostController = rememberNavController()
                 NavGraph(navHostController = navController, navController = navController)

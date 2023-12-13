@@ -182,7 +182,7 @@ fun Auth(status: Boolean, navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 5.dp)
-                .padding(bottom = 10.dp)
+                .padding(bottom = 5.dp)
         ) {
             SelectRegistrationOrLogin(status, navController)
         }
@@ -222,7 +222,7 @@ fun SelectRegistrationOrLogin(
                     }
                 }
                 .fillMaxWidth()
-                .padding(top = 5.dp, bottom = 10.dp)
+                .padding(top = 5.dp, bottom = 5.dp)
         )
     }
 }

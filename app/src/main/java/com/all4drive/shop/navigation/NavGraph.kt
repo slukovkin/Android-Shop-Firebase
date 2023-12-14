@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.all4drive.shop.StartScreen
+import com.all4drive.shop.view.admin.AdminPanel
 import com.all4drive.shop.view.auth.Auth
 
 @Composable
@@ -22,6 +23,9 @@ fun NavGraph(
         }
         composable(RouteNavigation.Main.route) {
             StartScreen()
+        }
+        composable(RouteNavigation.Admin.route) {
+            AdminPanel()
         }
     }
 }

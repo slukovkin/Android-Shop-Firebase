@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -146,15 +147,40 @@ fun Auth(status: Boolean, navController: NavController) {
                 .padding(horizontal = 5.dp)
                 .padding(bottom = 10.dp)
         ) {
-            if (loginOrRegistration) {
-                ButtonText(stringResource(R.string.login), email, password)
+            if (validationForm(email, password)) {
+                if (loginOrRegistration) {
+                    ButtonText(stringResource(R.string.login), email, password, navController)
+                } else {
+                    ButtonText(
+                        stringResource(R.string.registration),
+                        email,
+                        password,
+                        navController,
+                        name,
+                    )
+                }
             } else {
-                ButtonText(
-                    stringResource(R.string.registration),
-                    name,
-                    email,
-                    password
-                )
+                Button(
+                    onClick = { /*TODO*/ }, modifier = Modifier
+                        .padding(top = 10.dp)
+                        .fillMaxWidth(),
+                    shape = RoundedCornerShape(5.dp),
+                    enabled = false
+                ) {
+                    Text(
+                        if (!loginOrRegistration) {
+                            stringResource(
+                                R.string.registration
+                            )
+                        } else {
+                            stringResource(R.string.login)
+                        },
+                        style = TextStyle(
+                            color = Color.White,
+                            fontSize = 18.sp
+                        )
+                    )
+                }
             }
         }
 
@@ -205,4 +231,8 @@ fun SelectRegistrationOrLogin(
                 .padding(top = 5.dp, bottom = 5.dp)
         )
     }
+}
+
+fun validationForm(email: String, password: String): Boolean {
+    return !email.isNullOrEmpty() && password.trim().length >= 6
 }

@@ -15,14 +15,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.all4drive.shop.database.Db
 import com.all4drive.shop.models.CustomerModel
+import com.all4drive.shop.navigation.NavGraph
 
 @Composable
 fun ButtonText(
     text: String,
     email: String,
     password: String,
+    navController: NavController,
     name: String = "",
 ) {
     val db = Db()
@@ -32,12 +37,13 @@ fun ButtonText(
         mutableStateOf(user)
     }
 
+
     Button(
         onClick = {
             if (name != "") {
-                db.createUser(email, password, "users")
+                db.createUser(email, password, "users", navController)
             } else {
-                db.login(email, password, "users")
+                db.login(email, password, "users", navController)
             }
         },
         modifier = Modifier

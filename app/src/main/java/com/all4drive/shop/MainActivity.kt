@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.all4drive.shop.navigation.NavGraph
@@ -34,8 +35,6 @@ class MainActivity : ComponentActivity() {
         auth = Firebase.auth
 
         setContent {
-            val navController: NavHostController = rememberNavController()
-            var user = auth.currentUser
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -43,6 +42,7 @@ class MainActivity : ComponentActivity() {
                     .padding(start = 8.dp, end = 8.dp),
                 verticalArrangement = Arrangement.Center
             ) {
+                val navController: NavHostController = rememberNavController()
                 NavGraph(navHostController = navController, navController = navController)
             }
         }
@@ -54,6 +54,7 @@ class MainActivity : ComponentActivity() {
 fun StartScreen() {
     val auth = Firebase.auth
     val user = auth.currentUser
+    val navController = rememberNavController()
 
     Column {
         Text(

@@ -8,33 +8,33 @@ import com.google.firebase.auth.auth
 class Db {
     private val auth = Firebase.auth
 
-    fun login(email: String, password: String, table: String, navController: NavController) {
+    fun login(email: String, password: String, navController: NavController) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     val user = auth.currentUser
-                    Log.d("MyLog", "User: ${user?.email}")
-                    navController.navigate("main")
+                    if (user?.email == "admin@gmail.com") {
+                        navController.navigate("admin_panel")
+                    } else if (user != null) {
+                        navController.navigate("main")
+                    }
                 } else {
                     // If sign in fails, display a message to the user.
 //                    Log.d("MyLog", "UserWithEmail: ", it.exception)
                     val errorMessage = it.exception?.message
-                    Log.d("MyLog", "UserWithEmail: $errorMessage")
                 }
             }
             .addOnFailureListener {
-//                Log.w("MyLog", "createUserWithEmail:failure", it)
-                Log.d("MyLog", "Failure")
+//
             }
     }
 
 
-    fun createUser(email: String, password: String, table: String, navController: NavController) {
+    fun createUser(email: String, password: String, navController: NavController) {
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { it ->
+            .addOnCompleteListener {
                 if (it.isSuccessful) {
                     val user = auth.currentUser
-                    Log.d("MyLog", "Completed. User: ${user?.email}")
                     navController.navigate("login")
                 } else {
                     // If sign in fails, display a message to the user.

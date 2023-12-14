@@ -16,11 +16,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.all4drive.shop.database.Db
 import com.all4drive.shop.models.CustomerModel
-import com.all4drive.shop.navigation.NavGraph
 
 @Composable
 fun ButtonText(
@@ -41,9 +38,9 @@ fun ButtonText(
     Button(
         onClick = {
             if (name != "") {
-                db.createUser(email, password, "users", navController)
+                db.createUser(email, password, navController)
             } else {
-                db.login(email, password, "users", navController)
+                db.login(email, password, navController)
             }
         },
         modifier = Modifier

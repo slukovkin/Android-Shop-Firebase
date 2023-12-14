@@ -16,4 +16,5 @@
     <string name="save">Save</string>
     <string name="get">Get</string>
     <string name="enter_email">Enter your email</string>
+    <string name="email" translatable="false">Email</string>
 </resources>

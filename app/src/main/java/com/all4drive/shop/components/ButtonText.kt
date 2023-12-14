@@ -21,10 +21,9 @@ import com.all4drive.shop.models.CustomerModel
 @Composable
 fun ButtonText(
     text: String,
-    phone: String,
+    email: String,
     password: String,
     name: String = "",
-    address: String = ""
 ) {
     val db = Db()
     var user: CustomerModel? = null
@@ -36,9 +35,9 @@ fun ButtonText(
     Button(
         onClick = {
             if (name != "") {
-                db.createUser(name, phone, password, address, "users")
+                db.createUser(email, password, "users")
             } else {
-                result = db.login(phone, password, "users")
+                db.login(email, password, "users")
             }
         },
         modifier = Modifier

@@ -45,15 +45,13 @@ fun Auth(status: Boolean, navController: NavController) {
     var name by remember {
         mutableStateOf("")
     }
-    var phone by remember {
+    var email by remember {
         mutableStateOf("")
     }
     var password by remember {
         mutableStateOf("")
     }
-    var address by remember {
-        mutableStateOf("")
-    }
+
     var isVisiblePassword by remember {
         mutableStateOf(true)
     }
@@ -81,6 +79,7 @@ fun Auth(status: Boolean, navController: NavController) {
             .padding(5.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 15.dp),
     ) {
+
         if (!loginOrRegistration) {
             Row(
                 modifier = Modifier
@@ -90,11 +89,11 @@ fun Auth(status: Boolean, navController: NavController) {
                 TextField(
                     value = name,
                     onValueChange = { name = it },
-                    textStyle = TextStyle(fontSize = 25.sp),
+                    textStyle = TextStyle(fontSize = 20.sp),
                     singleLine = true,
                     label = { Text(stringResource(id = R.string.name)) },
                     placeholder = { Text(stringResource(id = R.string.your_name)) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 5.dp)
@@ -107,13 +106,13 @@ fun Auth(status: Boolean, navController: NavController) {
                 .padding(horizontal = 5.dp)
         ) {
             TextField(
-                value = phone,
-                onValueChange = { phone = it },
-                textStyle = TextStyle(fontSize = 25.sp),
+                value = email,
+                onValueChange = { email = it },
+                textStyle = TextStyle(fontSize = 20.sp),
                 singleLine = true,
-                label = { Text(stringResource(id = R.string.phone)) },
-                placeholder = { Text(stringResource(id = R.string.youre_phone)) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                label = { Text(stringResource(id = R.string.email)) },
+                placeholder = { Text(stringResource(id = R.string.enter_email)) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 5.dp)
@@ -127,7 +126,7 @@ fun Auth(status: Boolean, navController: NavController) {
             TextField(
                 value = password,
                 onValueChange = { value -> password = value },
-                textStyle = TextStyle(fontSize = 25.sp, color = Color.Black),
+                textStyle = TextStyle(fontSize = 20.sp, color = Color.Black),
                 singleLine = true,
                 label = { Text(stringResource(id = R.string.password)) },
                 placeholder = { Text(stringResource(id = R.string.enter_password)) },
@@ -140,25 +139,7 @@ fun Auth(status: Boolean, navController: NavController) {
                     .padding(top = 5.dp)
             )
         }
-        if (!loginOrRegistration) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 5.dp)
-            ) {
-                TextField(
-                    value = address,
-                    onValueChange = { address = it },
-                    textStyle = TextStyle(fontSize = 25.sp),
-                    singleLine = true,
-                    label = { Text(stringResource(R.string.delivery_address)) },
-                    placeholder = { Text(stringResource(id = R.string.enter_delivery_address)) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
-            }
-        }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -166,14 +147,13 @@ fun Auth(status: Boolean, navController: NavController) {
                 .padding(bottom = 10.dp)
         ) {
             if (loginOrRegistration) {
-                ButtonText(stringResource(R.string.login), phone, password)
+                ButtonText(stringResource(R.string.login), email, password)
             } else {
                 ButtonText(
                     stringResource(R.string.registration),
-                    phone,
-                    password,
                     name,
-                    address
+                    email,
+                    password
                 )
             }
         }

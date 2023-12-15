@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.all4drive.shop.navigation.NavGraph
@@ -33,13 +32,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         auth = Firebase.auth
-
-        setContent {
+        setContent() {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(ScrollState(0), true)
-                    .padding(start = 8.dp, end = 8.dp),
+                    .verticalScroll(ScrollState(0), true),
+//                    .padding(start = 8.dp, end = 8.dp),
                 verticalArrangement = Arrangement.Center
             ) {
                 val navController: NavHostController = rememberNavController()

@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         auth = Firebase.auth
-        setContent() {
+        setContent {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -52,7 +52,6 @@ class MainActivity : ComponentActivity() {
 fun StartScreen() {
     val auth = Firebase.auth
     val user = auth.currentUser
-    val navController = rememberNavController()
 
     Column {
         Text(

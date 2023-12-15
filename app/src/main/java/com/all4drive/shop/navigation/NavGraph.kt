@@ -7,7 +7,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.all4drive.shop.StartScreen
 import com.all4drive.shop.view.admin.AdminPanel
-import com.all4drive.shop.view.admin.DrawerComponent
 import com.all4drive.shop.view.admin.ProductList
 import com.all4drive.shop.view.auth.Auth
 
@@ -27,7 +26,7 @@ fun NavGraph(
             StartScreen()
         }
         composable(RouteNavigation.Admin.route) {
-            DrawerComponent()
+            AdminPanel()
         }
         composable(RouteNavigation.AdminProductList.route) {
             ProductList()
